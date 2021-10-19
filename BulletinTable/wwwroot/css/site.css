@@ -1,11 +1,19 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+@import url('colors.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    background-color: var(--DarkBG);
 }
 
 h1:focus {
     outline: none;
+}
+
+.hr{
+    border: 0;
+    border-top: 1px solid var(--PrimaryColor);
+    margin: 0px;
 }
 
 a, .btn-link {
@@ -64,8 +72,34 @@ a, .btn-link {
     }
 
 
-.center-container {
-    background-color: red;
-    width: 80%;
-    height: 80%;
+.article-header {
+    background-color: var(--PrimaryBG);
+    padding: 10px;
+    margin: 0px;
+}
+
+.article-header-text{
+    color: var(--LightSecondaryColor);
+}
+
+.button {
+    background-color: var(--PrimaryColor);
+    border: none;
+    padding: 15px 32px;
+    color: var(--PrimaryTextColor);
+    transition: 0.15s all;
+    -webkit-transition: 0.15s all;
+    -moz-transition: 0.15s all;
+    -ms-transition: 0.15s all;
+    -o-transition: 0.15s all;
+}
+
+.button:hover {
+    filter: var(--HoverFilter);
+    -webkit-filter: var(--HoverFilter);
+}
+
+.button:active {
+    filter: var(--DownFilter);
+    -webkit-filter: var(--DownFilter);
 }

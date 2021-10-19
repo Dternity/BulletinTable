@@ -1,0 +1,36 @@
+﻿:root {
+    --Primary: rgb(160, 160, 160);
+    --LightPrimary: rgb(170, 170, 170);
+    --DarkPrimary: rgb(150, 150, 150);
+    /*Primærfarge - Den skal brukes så mye som mulig, call to action, signalfarge*/
+    --PrimaryColor: #7251a1;
+    --DarkPrimaryColor: #796692;
+    --DisabledPrimaryColor: #9e88c0;
+    /* Sekundærfarge -Overlappende farge i logo, typo, osv. Skal kun brukes som en aksent på definerte områder */
+    --SecondaryColor: rgb(53, 36, 124);
+    --LightSecondaryColor: #a39fb4;
+    /* Tekstfarge - Brukes som primærfarge til brødtekster/mengdetekster*/
+    --PrimaryTextColor: #dfdfdf;
+    --LightPrimaryTextColor: #f0f0f0; /* Not standard! */
+    --DisabledPrimaryTextColor: #909192;
+    --PrimaryBG: rgb(63, 63, 63);
+    --DarkBG: rgb(53, 53, 53);
+    --VeryDarkBG: rgb(43, 43, 43);
+    --LightBG: rgb(73, 73, 73);
+    --VeryLightBG: rgb(93, 93, 93);
+    --ListItemOdd: rgb(110, 110, 110);
+    --ListItemEven: rgb(120, 120, 120);
+    --TextColorAccent: rgb(135 108 176); /* Accents */
+    --TextColorPrimary: rgb(210, 210, 210); /* Primary, Headers, titles etc.. */
+    --TextColorSecondary: rgb(160, 160, 160); /* Secondary: Subtext, Normal */
+
+    --BorderColorEnabled: rgb(120, 120, 120); /* Secondary: Subtext, Normal */
+    --BorderColorDisabled: rgb(45, 45, 45); /* Secondary: Subtext, Normal */
+    --BorderColorHover: rgb(135 108 176); /* Secondary: Subtext, Normal */
+
+    --CheckedFilter: brightness(120%);
+    --HoverFilter: brightness(110%) !important;
+    --DownFilter: brightness(130%) !important;
+    --DisabledFilter: brightness(70%);
+    --ReadOnlyFilter: brightness(85%);
+}
