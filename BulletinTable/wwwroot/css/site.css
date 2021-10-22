@@ -79,13 +79,13 @@ a, .btn-link {
 }
 
 .article-header-text{
-    color: var(--LightSecondaryColor);
+    color: var(--LightPrimaryTextColor);
 }
 
 .button {
     background-color: var(--PrimaryColor);
     border: none;
-    padding: 15px 32px;
+    padding: 6px 16px;
     color: var(--PrimaryTextColor);
     transition: 0.15s all;
     -webkit-transition: 0.15s all;
@@ -103,3 +103,4 @@ a, .btn-link {
     filter: var(--DownFilter);
     -webkit-filter: var(--DownFilter);
 }
+

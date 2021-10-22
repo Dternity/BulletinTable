@@ -1,24 +1,121 @@
 ﻿@page "/"
 @using System.Diagnostics
-<link href="~/css~/css/colors.css" rel="stylesheet" />
-<PageTitle>Index</PageTitle>
+@using Blazored.TextEditor
+<PageTitle>iResource</PageTitle>
 
+<style>
 
+    .top-nav-options {
+    }
 
-<div id="header" class="article-header">
-    <div id="top-nav" class="top-nav-options">
-        <h1 class="article-header-text">Article name</h1>
-        <hr>
-            <div class="button-group">
-                <button type="button" class="button" @onclick=@(() => alerty("carMoved"))>Click Me!</button>
-            </div>
-    </div>
-</div>
-Welcome to your new app.
+    .seperator-primary {
+        margin-top: 0px;
+        border-top: 2px solid var(--DisabledPrimaryColor)
+    }
+
+    .button-group {
+        float: right;
+        font-size: 14pt;
+        bottom: 0px;
+        margin-top: 10px
+    }
+
+</style>
 
 @code {
     public void alerty(string str)
     {
         Debug.WriteLine(str);
+    }
+}
+
+<div id="header" class="article-header">
+    <div id="top-nav" class="top-nav-options">
+        <h1 class="article-header-text">
+            Article name <div class="button-group">
+                <button type="button" class="button" @onclick=@(() => alerty("Opsideisi"))>Edit</button>
+                <button type="button" class="button" @onclick=@(() => alerty("Opsideisi"))>Copy Link</button>
+            </div>
+        </h1>
+
+    </div>
+    <hr class="seperator-primary">
+
+
+
+
+
+
+    <BlazoredTextEditor @ref="@QuillHtml">
+        <ToolbarContent>
+            <select class="ql-header">
+                <option selected=""></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+            </select>
+            <span class="ql-formats">
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-strike"></button>
+            </span>
+            <span class="ql-formats">
+                <select class="ql-color"></select>
+                <select class="ql-background"></select>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+            </span>
+            <span class="ql-formats">
+                <button class="ql-link"></button>
+            </span>
+        </ToolbarContent>
+        <EditorContent>
+            <h4>This Toolbar works with HTML</h4>
+            <a href="http://BlazorHelpWebsite.com">
+                BlazorHelpWebsite.com
+            </a>
+        </EditorContent>
+    </BlazoredTextEditor>
+    <br />
+    <button class="btn btn-primary"
+            @onclick="GetHTML">
+        Get HTML
+    </button>
+    <button class="btn btn-primary"
+            @onclick="SetHTML">
+        Set HTML
+    </button>
+    <br />
+    <div>
+        <br />
+        @((MarkupString)QuillHTMLContent)
+        @QuillHTMLContent
+    </div>
+    <br />
+</div>
+@code {
+
+    BlazoredTextEditor QuillHtml;
+    string QuillHTMLContent;
+
+    public async void GetHTML()
+    {
+        QuillHTMLContent = await this.QuillHtml.GetHTML();
+        StateHasChanged();
+    }
+
+    public async void SetHTML()
+    {
+        string QuillContent =
+            @"<a href='http://BlazorHelpWebsite.com/'>" +
+            "<img src='images/BlazorHelpWebsite.gif' /></a>";
+
+        await this.QuillHtml.LoadHTMLContent(QuillContent);
+        StateHasChanged();
     }
 }
