@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.Diagnostics
 @using Blazored.TextEditor
+@using BulletinTable.Storage
 <PageTitle>iResource</PageTitle>
 
 <style>
@@ -34,7 +35,7 @@
         <h1 class="article-header-text">
             Article name <div class="button-group">
                 <button type="button" class="button" @onclick=@(() => alerty("Opsideisi"))>Edit</button>
-                <button type="button" class="button" @onclick=@(() => alerty("Opsideisi"))>Copy Link</button>
+                <button type="button" class="button" @onclick=@(() => SaveFile())>Copy Link</button>
             </div>
         </h1>
 
@@ -99,6 +100,11 @@
     <br />
 </div>
 @code {
+
+    public async void SaveFile()
+    {
+        FileIO._IO.SaveString("Testyyysdfsdfsd", "hello");
+    }
 
     BlazoredTextEditor QuillHtml;
     string QuillHTMLContent;
