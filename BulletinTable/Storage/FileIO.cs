@@ -62,7 +62,7 @@
             catch (IOException ex) 
             {
                 Console.WriteLine($@"An I/O error occurred while opening the file. Exception: '{ex}' Path: '{fullPath}'");
-                throw new UnauthorizedAccessException($@"An I/O error occurred while opening the file. Exception: '{ex}' Path: '{fullPath}'");
+                throw new IOException($@"An I/O error occurred while opening the file. Exception: '{ex}' Path: '{fullPath}'");
             }
             catch (Exception ex)
             {
