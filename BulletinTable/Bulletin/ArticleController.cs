@@ -1,6 +1,6 @@
 ﻿using BulletinTable.Utils;
-using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 
 namespace BulletinTable.Bulletin
 {
@@ -20,9 +20,14 @@ namespace BulletinTable.Bulletin
             return _articlesList[index];
         }
 
+        /// <summary>
+        /// Adds an article to the collection. 
+        /// </summary>
+        /// <param name="article"></param>
+        /// <returns></returns>
         public bool Add(Article article)
         {
-            if(article == null)
+            if (article == null)
             {
                 LOG.Inst.Error($@"The article was null!", MethodBase.GetCurrentMethod());
                 return false;
@@ -33,12 +38,49 @@ namespace BulletinTable.Bulletin
                 LOG.Inst.Error($@"The article already exists in the collection! Article title: {article.GetTitle()}", MethodBase.GetCurrentMethod());
                 return false;
             }
-            var title = article.GetTitle() ?? "NULL";
 
             _articlesList.Add(article);
-            _articlesDict.TryAdd(title, article);
+            _articlesDict.TryAdd(article.GetTitle() ?? "NULL", article);
 
             return true;
+        }
+
+        /// <summary>
+        /// Adds a new article to the collection using a JSON string.
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public bool Add(string json)
+        {
+            var article = JsonSerializer.Deserialize<Article>(json);
+            var index = _articlesList.Count;
+
+            if (article == null)
+            {
+                LOG.Inst.Error($@"Not a valid article-json-object!", MethodBase.GetCurrentMethod());
+                return false;
+            }
+
+            if (_articlesList.Contains(article) || _articlesDict.ContainsKey(article.GetTitle() ?? "NULL" + index))
+            {
+                LOG.Inst.Error($@"Article '{article.GetTitle()}' is already contained in the collection. Guid:{article.GUID}", MethodBase.GetCurrentMethod());
+                return false;
+            }
+            article.Index = index;
+
+            _articlesList.Add(article);
+            var dictSuccess = _articlesDict.TryAdd(article.GetTitle() ?? ("NULL" + index), article);
+            var listSuccess = _articlesList.Contains(article);
+
+            if (dictSuccess && listSuccess)
+            {
+                return true;
+            }
+
+            LOG.Inst.Error($@"The article were not added to both collections! Dictionary: {(dictSuccess == true ? "Yes" : "No")} {Environment.NewLine}
+                                                                                         List: {(listSuccess == true ? "Yes" : "No")}", MethodBase.GetCurrentMethod());
+
+            return false;
         }
 
         public EventHandler<Guid>? Added;
