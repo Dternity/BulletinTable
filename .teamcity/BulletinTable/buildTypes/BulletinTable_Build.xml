@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="6ced825d-b967-4a4b-8333-efe3b52b3c89" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Build</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowExternalStatus" value="true" />
+    </options>
+    <disabled-settings>
+      <setting-ref ref="RUNNER_1" />
+    </disabled-settings>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="" type="jb.nuget.installer">
+        <parameters>
+          <param name="nuget.path" value="F:\Programs\TeamCity\buildAgent\tools\NuGet.CommandLine.3.4.3\tools\NuGet.exe" />
+          <param name="nuget.sources"><![CDATA[https://www.nuget.org/api/v2
+https://api.nuget.org/v3/index.json]]></param>
+          <param name="nuget.updatePackages" value="true" />
+          <param name="nuget.updatePackages.mode" value="perConfig" />
+          <param name="nuget.use.restore" value="install" />
+          <param name="sln.path" value="BulletinTable.sln" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_4" name="" type="dotnet">
+        <parameters>
+          <param name="command" value="restore" />
+          <param name="dotNetCoverage.dotCover.home.path" value="%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%" />
+          <param name="paths" value="BulletinTable" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="" type="dotnet">
+        <parameters>
+          <param name="command" value="msbuild" />
+          <param name="configuration" value="Debug" />
+          <param name="dotNetCoverage.dotCover.home.path" value="%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%" />
+          <param name="msbuild.version" value="MSBuild_CrossPlatform" />
+          <param name="paths" value="BulletinTable" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_3" name="" type="dotnet">
+        <parameters>
+          <param name="command" value="run" />
+          <param name="configuration" value="Debug" />
+          <param name="dotNetCoverage.dotCover.home.path" value="%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%" />
+          <param name="paths" value="BulletinTable" />
+          <param name="teamcity.step.mode" value="default" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="BulletinTable_HttpsGithubComDternityBulletinTableRefsHeadsMaster" />
+    </vcs-settings>
+    <requirements>
+      <exists id="RQ_1" name="DotNetCoreSDK6.0_Path" />
+    </requirements>
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <cleanup />
+  </settings>
+</build-type>
+
