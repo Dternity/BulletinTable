@@ -47,7 +47,7 @@ https://api.nuget.org/v3/index.json]]></param>
           <param name="configuration" value="Debug" />
           <param name="dotNetCoverage.dotCover.home.path" value="%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%" />
           <param name="paths" value="BulletinTable" />
-          <param name="runtime" value="runtime%teamcity.tool.jetbrains.resharper-clt.DEFAULT%" />
+          <param name="runtime" value="%teamcity.tool.jetbrains.resharper-clt.DEFAULT%" />
           <param name="teamcity.step.mode" value="default" />
         </parameters>
       </runner>
