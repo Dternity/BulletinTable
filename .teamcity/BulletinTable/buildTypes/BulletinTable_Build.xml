@@ -5,6 +5,9 @@
   <settings>
     <options>
       <option name="allowExternalStatus" value="true" />
+      <option name="executionTimeoutMin" value="60" />
+      <option name="maximumNumberOfBuilds" value="1" />
+      <option name="showDependenciesChanges" value="true" />
     </options>
     <disabled-settings>
       <setting-ref ref="RUNNER_1" />
