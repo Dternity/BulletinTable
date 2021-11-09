@@ -1,4 +1,6 @@
-﻿using BulletinTable.Utils;
+﻿#pragma warning disable CS8604 // Possible null reference argument.
+
+using BulletinTable.Utils;
 using System.Reflection;
 using System.Text.Json;
 
@@ -6,8 +8,8 @@ namespace BulletinTable.Bulletin
 {
     public class ArticleController
     {
-        private List<Article> _articlesList = new List<Article>();
-        private Dictionary<string, Article> _articlesDict = new Dictionary<string, Article>();
+        private readonly List<Article> _articlesList = new List<Article>();
+        private readonly Dictionary<string, Article> _articlesDict = new Dictionary<string, Article>();
 
         public Article? Get(int index)
         {

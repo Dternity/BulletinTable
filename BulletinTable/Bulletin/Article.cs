@@ -1,4 +1,6 @@
-﻿using BulletinTable.Storage;
+﻿#pragma warning disable CS8604 // Possible null reference argument.
+
+using BulletinTable.Storage;
 using BulletinTable.Utils;
 using System.Reflection;
 

@@ -1,5 +1,7 @@
-﻿using BulletinTable.Utils;
+﻿#pragma warning disable CS8604 // Possible null reference argument.
+using BulletinTable.Utils;
 using System.Reflection;
+
 namespace BulletinTable.Storage
 {
     public class FileIO
@@ -8,7 +10,7 @@ namespace BulletinTable.Storage
         public string SavePath = AppContext.BaseDirectory + "Data";
         public const string JSON_EXT = ".json";
 
-#pragma warning disable CS8604 // Possible null reference argument.
+
 
         /// <summary>
         /// Loads a specifed string using name to query the file. 
