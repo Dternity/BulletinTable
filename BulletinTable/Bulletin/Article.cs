@@ -1,6 +1,5 @@
 ﻿#pragma warning disable CS8604 // Possible null reference argument.
 
-using BulletinTable.Storage;
 using BulletinTable.Utils;
 using System.Reflection;
 
@@ -19,23 +18,28 @@ namespace BulletinTable.Bulletin
         private string? title;
         private string? content;
 
-        public string? GetTitle() => title;
-        public string? GetContent() => content;
-
-        public void SetTitle(string? value)
+        public string? Title
         {
-            if (string.IsNullOrEmpty(value)) return;
-            title = value;
-            TitleChanged?.Invoke(this, title);
-            OnAnyChanged();
+            get => title;
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                title = value;
+                TitleChanged?.Invoke(this, title);
+                OnAnyChanged();
+            }
         }
 
-        public void SetContent(string? value)
+        public string? Content
         {
-            if (string.IsNullOrEmpty(value)) return;
-            content = value;
-            ContentChanged?.Invoke(this, EventArgs.Empty);
-            OnAnyChanged();
+            get => content;
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                content = value;
+                ContentChanged?.Invoke(this, EventArgs.Empty);
+                OnAnyChanged();
+            }
         }
 
         private void OnAnyChanged()
@@ -56,6 +60,10 @@ namespace BulletinTable.Bulletin
             }
 
             this.title = title;
+        }
+
+        public Article()
+        {
         }
     }
 }

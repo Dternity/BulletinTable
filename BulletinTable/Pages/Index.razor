@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using System.Diagnostics
 @using Blazored.TextEditor
+@using BulletinTable.Bulletin
 @using BulletinTable.Storage
 <PageTitle>iResource</PageTitle>
 
@@ -106,7 +107,7 @@
         FileIO._IO.SaveString("Testyyysdfsdfsd", "hello");
     }
 
-        public async void LoadFile()
+    public async void LoadFile()
     {
         FileIO._IO.LoadString("hello");
     }
@@ -116,7 +117,9 @@
 
     public async void GetHTML()
     {
-        QuillHTMLContent = await this.QuillHtml.GetHTML();
+        //QuillHTMLContent = await this.QuillHtml.GetHTML();
+        RootController._inst.Init();
+        QuillHTMLContent = RootController._inst.ArticleController.Get(0).Content;
         StateHasChanged();
     }
 
@@ -126,7 +129,10 @@
             @"<a href='http://BlazorHelpWebsite.com/'>" +
             "<img src='images/BlazorHelpWebsite.gif' /></a>";
 
-        await this.QuillHtml.LoadHTMLContent(QuillContent);
+        RootController._inst.Init();
+        
+        await this.QuillHtml.LoadContent(RootController._inst.ArticleController.Get(0).Content);
+        //await this.QuillHtml.LoadHTMLContent(QuillContent);
         StateHasChanged();
     }
 }

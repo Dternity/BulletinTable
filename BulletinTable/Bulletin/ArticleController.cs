@@ -11,9 +11,14 @@ namespace BulletinTable.Bulletin
         private readonly List<Article> _articlesList = new List<Article>();
         private readonly Dictionary<string, Article> _articlesDict = new Dictionary<string, Article>();
 
+        /// <summary>
+        /// Gets an article by index. 
+        /// </summary>
+        /// <param name="index">The index of the article.</param>
+        /// <returns><see cref="Article"/></returns>
         public Article? Get(int index)
         {
-            if (_articlesList.Count > index)
+            if (_articlesList.Count <= index)
             {
                 LOG.Inst.Error($@"Index out of range! Index:{index} Count of list is: {_articlesList.Count}", MethodBase.GetCurrentMethod());
                 return default;
@@ -21,6 +26,43 @@ namespace BulletinTable.Bulletin
 
             return _articlesList[index];
         }
+
+        /// <summary>
+        /// Gets an article by name (<see cref="Article.title"/>). 
+        /// </summary>
+        /// <param name="name">The name/tittle of the article</param>
+        /// <returns><see cref="Article"/></returns>
+        public Article? Get(string name)
+        {
+            if (!_articlesDict.TryGetValue(name, out var article))
+            {
+                LOG.Inst.Error($@"'{name}' was not found in the collection!", MethodBase.GetCurrentMethod());
+                return default;
+            }
+
+            if (article == null)
+            {
+                LOG.Inst.Error($@"The article was null!", MethodBase.GetCurrentMethod());
+                return default;
+            }
+
+            return article;
+        }
+
+        /// <summary>
+        /// Gets all the articles stored in <see cref="ArticleController"/>.
+        /// </summary>
+        /// <returns><see cref="IList{T}"/> of articles.</returns>
+        public IList<Article>? GetArticles()
+        {
+            if(_articlesList == null)
+            {
+                return null;
+            }
+
+            return _articlesList;
+        }
+
 
         /// <summary>
         /// Adds an article to the collection. 
@@ -37,12 +79,13 @@ namespace BulletinTable.Bulletin
 
             if (_articlesList.Contains(article))
             {
-                LOG.Inst.Error($@"The article already exists in the collection! Article title: {article.GetTitle()}", MethodBase.GetCurrentMethod());
+                LOG.Inst.Error($@"The article already exists in the collection! Article title: {article.Title}", MethodBase.GetCurrentMethod());
                 return false;
             }
 
             _articlesList.Add(article);
-            _articlesDict.TryAdd(article.GetTitle() ?? "NULL", article);
+            _articlesDict.TryAdd(article.Title ?? "NULL", article);
+            LOG.Inst.Info($@"Added Article '{article.Title}'!");
 
             return true;
         }
@@ -63,15 +106,16 @@ namespace BulletinTable.Bulletin
                 return false;
             }
 
-            if (_articlesList.Contains(article) || _articlesDict.ContainsKey(article.GetTitle() ?? "NULL" + index))
+            if (_articlesList.Contains(article) || _articlesDict.ContainsKey(article.Title ?? "NULL" + index))
             {
-                LOG.Inst.Error($@"Article '{article.GetTitle()}' is already contained in the collection. Guid:{article.GUID}", MethodBase.GetCurrentMethod());
+                LOG.Inst.Error($@"Article '{article.Title}' is already contained in the collection. Guid:{article.GUID}", MethodBase.GetCurrentMethod());
                 return false;
             }
+
             article.Index = index;
 
             _articlesList.Add(article);
-            var dictSuccess = _articlesDict.TryAdd(article.GetTitle() ?? ("NULL" + index), article);
+            var dictSuccess = _articlesDict.TryAdd(article.Title ?? ("NULL" + index), article);
             var listSuccess = _articlesList.Contains(article);
 
             if (dictSuccess && listSuccess)
