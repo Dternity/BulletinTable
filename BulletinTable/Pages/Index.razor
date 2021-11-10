@@ -130,8 +130,9 @@
             "<img src='images/BlazorHelpWebsite.gif' /></a>";
 
         RootController._inst.Init();
-        
-        await this.QuillHtml.LoadContent(RootController._inst.ArticleController.Get(0).Content);
+        var articlelist = RootController._inst.ArticleController.GetArticles();
+        //await this.QuillHtml.LoadContent(articlelist[0].Content);
+        await this.QuillHtml.LoadHTMLContent(articlelist[0].Content);
         //await this.QuillHtml.LoadHTMLContent(QuillContent);
         StateHasChanged();
     }
